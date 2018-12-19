@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <div class="container">
+
+        <a th:href="@{/exp}">
+            <button type="button" class="btn btn-outline-warning"> BACK TO EXPENDITURES</button>
+        </a>
+
+    </div>
+<br>
+</head>
+<body>
+
+
+<div class="container">
+    <form th:object="${wyd}" method="post" , th:action="@{/saveChngExp}">
+        <div class="form-group">
+            <label for="exampleInputDescription">Description</label>
+            <input th:field="*{description}" type="text" class="form-control" id="exampleInputDescription" placeholder="Enter description of expenditure">
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputLongDescription">Long Description</label>
+            <textarea th:field="*{longDescription}" type="text" class="form-control" id="exampleInputLongDescription" placeholder="Enter additional info"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputAmount">Amount</label>
+            <input th:field="*{amount}" type="text" class="form-control" id="exampleInputAmount" placeholder="Enter Amount">
+        </div>
+
+        <div class="form-group">
+            <label >Currency</label><br>
+            <select th:field="*{currency}">
+                <option th:each="waluta: ${waluty}" th:value="${waluta.getCur()}"  th:text="${waluta.getCur()}" ></option>
+            </select>
+
+        </div>
+
+        <div class="form-group">
+            <label >Pay By:</label><br>
+            <select th:field="*{payById}">
+                <option th:each="person: ${listaOsob}" th:value="${person.getId()}"  th:text="${person.getFirstName()}" ></option>
+            </select>
+        </div>
+
+
+        <br>
+
+        <label>Swap Between:</label>
+        <div class="form-check" th:each="person: ${listaOsob}" >
+            <input type="checkbox" th:value="${person.getId()}" th:field="*{splitBetweenId}" th:checked="true" >
+            <label name="wybor" class="form-check-label" th:text="${person.getFirstName()}"  >
+            </label>
+        </div>
+
+
+
+        <br>
+
+        <button type="submit" class="btn btn-primary">SAVE CHANGES</button>
+
+    </form>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
+</html>
